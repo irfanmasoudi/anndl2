@@ -40,3 +40,31 @@ In this section, we have implemented a couple of different model scenarios. We a
 | 2.  Model with window=200, stride=10 and telescope=100 | 9.1587381363  |
 | 3.  Model with window=600, stride=2 and telescope=864  | 4.7141537666  |
 | 4.  Model with window=600, stride=1 and telescope=864  | 4.0347905159  |
+
+### Early Stopping and Reduce Learning Rate
+
+We implement early stopping to tackle the overfitting problem, even though we have implemented Dropout in our model. 
+
+```
+EarlyStopping(monitor='val_loss', 
+mode='min',
+patience=10,
+restore_best_weights=True)
+```
+
+The goal is to stop the training when the validation error starts increasing. When our training is going to plateau, we reduce the learning rate, 
+
+```
+ReduceLROnPlateau(monitor='val_loss',
+mode='min', 
+patience=5, 
+factor=0.5,
+min_lr=1e-5).
+```
+
+### Conclusion
+
+After first inspecting the structure of our time series dataset and deciding to use all data for the training process and validation, we tested different model architectures. In the first step of model selection, various models were tested with fixed and unchanged window, stride and telescope values. Based on the result we had on Codalab, we kept the model architecture with the lowest RMSE value, the Bidirectional LSTM with 2 layers with an RMSE value of 11.5225048065.
+
+In the second step of model selection, we modified the hyperparameter values of the model architecture selected in the first step. The best result we managed to get is 4.0347905159 with a 2-layer bidirectional LSTM model with window=600, stride 1, and telescope=864. That’s why we chose it as our best model.
+
