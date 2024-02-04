@@ -1,4 +1,4 @@
-# Time-series classification
+# Time-series Forecasting
 
 ## Dataset structure
 We are given a multivariate dataset that consists of 7 ordered features. We have 68528 data points for each feature. Here is an overview of the 7 ordered features of the data frame:
